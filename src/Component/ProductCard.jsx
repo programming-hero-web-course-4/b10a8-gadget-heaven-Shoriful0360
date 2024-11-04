@@ -7,7 +7,7 @@ const ProductCard = () => {
     const [products,setProducts]=useState([]);
     const data=useLoaderData();
   
-   
+   console.log(products)
    
     useEffect(()=>{
         const productsFilter=[...data].filter(product=>product.category===category)
@@ -18,15 +18,10 @@ const ProductCard = () => {
             setProducts(data.slice(0,6))
         }
     },[data,category])
-  
- 
-
-  
-   
 
    
     return (
-        <div>
+        <div className='grid grid-cols-3 gap-5'>
           {
             products.map(product=><Product key={product.produt_id} product={product}></Product>)
           }

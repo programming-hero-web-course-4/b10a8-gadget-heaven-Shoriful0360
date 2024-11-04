@@ -15,8 +15,8 @@ const Banner = () => {
                 </div>
             </div>
         </div>
-        <div className=' max-w-[1000px] -translate-y-1/4 mx-auto h-[600px] '>
-            <img className='rounded-md h-full border-2' src={img} alt="" />
+        <div className=' max-w-[1000px] -translate-y-10 px-6 sm:-translate-y-1/4 mx-auto h-[600px] '>
+            <img className='rounded-md  border-2' src={img} alt="" />
         </div>
         </div>
     );

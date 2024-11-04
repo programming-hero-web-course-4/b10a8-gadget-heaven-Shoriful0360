@@ -8,7 +8,7 @@ import { GiSelfLove } from "react-icons/gi";
 const Navbar = () => {
     return (
        <div className=' '>
-         <div className="navbar  fixed mx-auto container z-50 backdrop-blur-lg bg-white rounded-md">
+         <div className="navbar  fixed mx-auto container z-50 backdrop-blur-lg bg-white/30 rounded-md">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

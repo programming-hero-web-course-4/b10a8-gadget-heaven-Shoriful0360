@@ -7,7 +7,7 @@ const Product = ({ product }) => {
     return (
         <Link to={`/Id/${product_id}`}>
         
-        <div className="card card-compact bg-base-100 w-96 shadow-xl">
+        <div className="card card-compact bg-base-100  shadow-xl">
             <figure>
                 <img
                     className='w-72 h-40 rounded-md '

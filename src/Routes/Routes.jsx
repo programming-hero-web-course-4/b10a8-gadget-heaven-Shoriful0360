@@ -27,14 +27,10 @@ import Dashboard from "../pages/Dashboard";
                 {
                     path:'/category/:category',
                     element: <ProductCard></ProductCard>,
+                   
                     loader:()=>fetch('../products.json')
                     
-                },{
-                  path:'/',
-                  element: <ProductCard></ProductCard>,
-                  loader:()=>fetch('../products.json')
-                  
-              }
+                },
             ]
         },
         {
