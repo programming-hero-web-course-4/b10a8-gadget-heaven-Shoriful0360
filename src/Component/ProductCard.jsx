@@ -7,16 +7,19 @@ const ProductCard = () => {
     const [products,setProducts]=useState([]);
     const data=useLoaderData();
   
-   console.log(products)
+
    
     useEffect(()=>{
-        const productsFilter=[...data].filter(product=>product.category===category)
-        if(productsFilter){
-            setProducts(productsFilter)
-        }
-        else{
-            setProducts(data.slice(0,6))
-        }
+      if(category){
+        const productsFilter=[...data].filter(product=>product.category===category);
+        setProducts(productsFilter)
+      }
+      else{
+        setProducts(data.slice(0,6))
+      }
+    
+        
+     
     },[data,category])
 
    

@@ -25,10 +25,15 @@ import Dashboard from "../pages/Dashboard";
             loader:()=>fetch('../Category.json'),
             children:[
                 {
+                    path:'/',
+                    element: <ProductCard></ProductCard>,
+                    loader:()=>fetch('/products.json')
+                    
+                },
+                {
                     path:'/category/:category',
                     element: <ProductCard></ProductCard>,
-                   
-                    loader:()=>fetch('../products.json')
+                    loader:()=>fetch('/products.json')
                     
                 },
             ]
