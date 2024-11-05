@@ -1,9 +1,10 @@
 
-import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
-import { getStoreDataList } from '../utility/DataStore';
+import { getStoreDataList, getStoreWhistList } from '../utility/DataStore';
+import { countContext, wishCountContex } from './MainLayout/Layout';
 
 
 
@@ -11,18 +12,32 @@ import { getStoreDataList } from '../utility/DataStore';
 
 
 const Navbar = () => {
-  // const cardAdd=getStoreDataList()
-  const [cardAdd,setCardAdd]=useState([]);
-  
-  useEffect(()=>{
-    const getStoreData=getStoreDataList();
-  
-    setCardAdd(getStoreData)
-  },[])
 
-    return (
-       <div className=' '>
-         <div className="navbar  fixed mx-auto container z-50 backdrop-blur-lg bg-white/30 rounded-md">
+  // const cardAdd=getStoreDataList()
+  const [cardAdd, setCardAdd] = useState([]);
+  const [cardWish, setCardWish] = useState([])
+
+  const { count, setCount } = useContext(countContext)
+  const { wishCount, setWishCount } = useContext(wishCountContex)
+  // const{count,setCount}=useContext(countContext)
+
+
+  useEffect(() => {
+    const getStoreData = getStoreDataList();
+   
+
+    setCardAdd(getStoreData)
+  }, [count])
+
+  useEffect(() => {
+    const getStoreWish=getStoreWhistList()
+    setCardWish(getStoreWish)
+
+  }, [wishCount])
+
+  return (
+    <div className=' '>
+      <div className={`navbar  fixed mx-auto max-w-[1476px] z-50 backdrop-blur-lg bg-begoni  rounded-md`}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -42,31 +57,31 @@ const Navbar = () => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                 <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
-            <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
-            <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+              <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
+              <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
+              <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
             </ul>
           </div>
           <NavLink className="btn btn-ghost font-bold text-xl">daisyUI</NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu gap-10 menu-horizontal px-1">
-           
-          <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
-            <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
-            <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
-            <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
 
-       
+            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
+
+
           </ul>
         </div>
         <div className="navbar-end gap-5">
           <NavLink className={'relative '}><MdAddShoppingCart className=' bg-white rounded-full text-4xl  shadow-lg '></MdAddShoppingCart><small className='  w-5 h-5 absolute -top-4 -right-2 rounded-full bg-green-300  '>{cardAdd.length}</small></NavLink>
-          <NavLink className={''}><FaRegHeart className=' bg-white rounded-full text-4xl p-1  shadow-lg ' /> <small className='  w-5 h-5 absolute -top-0 -right-2 rounded-full bg-green-300  '>{cardAdd.length}</small></NavLink>
+          <NavLink className={''}><FaRegHeart className=' bg-white rounded-full text-4xl p-1  shadow-lg ' /> <small className='  w-5 h-5 absolute -top-0 -right-2 rounded-full bg-green-300  '>{cardWish.length}</small></NavLink>
         </div>
       </div>
-       </div>
-    );
+    </div>
+  );
 };
 
-export default Navbar;<h1>I am Navbar</h1>
+export default Navbar; <h1>I am Navbar</h1>

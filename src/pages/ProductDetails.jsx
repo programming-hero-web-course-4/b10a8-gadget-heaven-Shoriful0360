@@ -1,17 +1,24 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { FaRegStar } from "react-icons/fa6";
-import addLocalStorageData, { getStoreDataList } from '../utility/DataStore';
-import addWishlistStoreData from '../utility/DataStore';
+import addLocalStorageData, { getStoreDataList,addWishlistStoreData }  from '../utility/DataStore';
+
+import { countContext, wishCountContex } from '../Component/MainLayout/Layout';
 
 const ProductDetails = () => {
+  const {count,setCount}=useContext(countContext)
+  const{wishCount,setWishCount}=useContext(wishCountContex)
+
+  
+
   const {id}=useParams();
   const allProductData=useLoaderData()
  const [product,setProduct]=useState({});
  const {category,description,price,product_image,product_title,rating,specification}=product
 
  const [active ,setActive]=useState(false)
+ const [WishActive,setWishActive]=useState(false)
  useEffect(()=>{
 const productId=[...allProductData].find(productId=>productId.product_id===parseInt(id))
 if(productId){
@@ -20,28 +27,34 @@ if(productId){
 else {
   setProduct({})
 }
-const addListCart=getStoreDataList()
-const isExis=addListCart.find(Id=>Id.product_id===productId.product_id)
-if(isExis){
-  setActive(true)
-}
+
+
+// const addListCart=getStoreDataList()
+// const isExis=addListCart.find(Id=>Id.product_id===productId.product_id)
+// if(isExis){
+//   setActive(true)
+// }
  },[])
 
 
  const handleStorage=(data)=>{
 
-  addLocalStorageData(data)
+ addLocalStorageData(data)
+ setCount((prev)=> prev + 1)
+  
   setActive(true)
 
 
-// const getData=getStoreDataList();
-// const isExist=getData.find(data=>)
+
 
  }
-//  const handleWishlistStorageData=(Id)=>{
-//   addWishlistStoreData(Id)
+ const handleWishlistStorageData=(Id)=>{
+  addWishlistStoreData(Id)
+  setWishCount((prev)=> prev + 1)
   
-//  }
+  setWishActive(true)
+  
+ }
  
  
 
@@ -80,7 +93,9 @@ if(isExis){
       <button
       disabled={active}
       onClick={()=>handleStorage(product)} className="btn btn-primary">Add to card</button>
-      <button  className="btn btn-primary ml-3">WishList</button>
+      <button
+      disabled={WishActive}
+      onClick={()=>handleWishlistStorageData(product)}  className="btn btn-primary ml-3">WishList</button>
     </div>
   </div>
 </div>
