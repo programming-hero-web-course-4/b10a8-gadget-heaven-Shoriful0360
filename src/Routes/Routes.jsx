@@ -10,7 +10,10 @@ import ProductCard from "../Component/ProductCard";
 import ProductDetails from "../pages/ProductDetails";
 import Error from "../pages/Error";
 import Statistic from "../pages/Statistic";
+
+import AllProduct from "../pages/AllProduct";
 import Dashboard from "../pages/Dashboard";
+
 
 
   const router = createBrowserRouter([
@@ -48,9 +51,14 @@ import Dashboard from "../pages/Dashboard";
           element:<Statistic></Statistic>
         },
         {
-          path:'/dashboard',
-          element:<Dashboard></Dashboard>
-        }
+          path:'/allProduct',
+          element:<AllProduct></AllProduct>,
+          loader:()=>fetch('/products.json')
+        },
+       {
+        path:'/dashboard',
+        element:<Dashboard></Dashboard>
+       }
       ]
     },
   ]);

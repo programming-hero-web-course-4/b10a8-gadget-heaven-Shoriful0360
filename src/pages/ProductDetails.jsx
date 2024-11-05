@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { FaRegStar } from "react-icons/fa6";
+import addLocalStorageData from '../utility/DataStore';
+import addWishlistStoreData from '../utility/DataStore';
 
 const ProductDetails = () => {
   const {id}=useParams();
@@ -18,6 +20,14 @@ else {
 }
 
  },[])
+ const handleStorage=(Id)=>{
+ 
+  addLocalStorageData(Id)
+ }
+ const handleWishlistStorageData=(Id)=>{
+  addWishlistStoreData(Id)
+  
+ }
  
  
 
@@ -42,7 +52,8 @@ else {
      
       
       <h2 className='text-xl flex text-center items-center gap-3 justify-center font-semibold'>Rating: {rating} <FaRegStar className='bg-warning' /> </h2>
-      <button className="btn btn-primary">Add to card</button>
+      <button onClick={()=>handleStorage(id)} className="btn btn-primary">Add to card</button>
+      <button onClick={()=>handleWishlistStorageData(id)} className="btn btn-primary ml-3">WishList</button>
     </div>
   </div>
 </div>

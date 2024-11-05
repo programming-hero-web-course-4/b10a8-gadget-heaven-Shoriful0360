@@ -1,11 +1,29 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { MdAddShoppingCart } from "react-icons/md";
-import { GiSelfLove } from "react-icons/gi";
+import { FaRegHeart } from "react-icons/fa";
+import { getStoreDataList } from '../utility/DataStore';
+
+
+
+
 
 
 const Navbar = () => {
+  // const cardAdd=getStoreDataList()
+  const [cardAdd,setCardAdd]=useState([]);
+  
+  useEffect(()=>{
+    const getStoreData=getStoreDataList();
+    if(getStoreData){
+      setCardAdd(getStoreData)
+    }
+    else{
+      setCardAdd ([])
+    }
+  },[])
+
     return (
        <div className=' '>
          <div className="navbar  fixed mx-auto container z-50 backdrop-blur-lg bg-white/30 rounded-md">
@@ -41,13 +59,14 @@ const Navbar = () => {
           <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
             <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
             <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+            <NavLink className={({isActive})=>`${isActive?'text-warning':'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
 
        
           </ul>
         </div>
         <div className="navbar-end gap-5">
-          <NavLink className={'text-3xl p-3 bg-green-200 rounded-full'}><MdAddShoppingCart></MdAddShoppingCart></NavLink>
-          <NavLink className={'text-3xl p-3 bg-green-200 rounded-full'}><GiSelfLove/></NavLink>
+          <NavLink className={'relative '}><MdAddShoppingCart className=' bg-white rounded-full text-4xl  shadow-lg '></MdAddShoppingCart><small className='  w-5 h-5 absolute -top-4 -right-2 rounded-full bg-green-300  '>{cardAdd.length}</small></NavLink>
+          <NavLink className={''}><FaRegHeart className=' bg-white rounded-full text-4xl p-1  shadow-lg ' /> <small className='  w-5 h-5 absolute -top-0 -right-2 rounded-full bg-green-300  '>{cardAdd.length}</small></NavLink>
         </div>
       </div>
        </div>

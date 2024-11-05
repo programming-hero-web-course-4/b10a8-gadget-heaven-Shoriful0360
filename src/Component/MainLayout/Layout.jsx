@@ -4,12 +4,14 @@ import React from 'react';
 import Navbar from '../Navbar';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Footer';
+import  { Toaster } from 'react-hot-toast';
 
 const Layout = () => {
 
    
     return (
         <div>
+            <Toaster></Toaster>
           <div className='h-4'>
           <Navbar></Navbar>
           </div>

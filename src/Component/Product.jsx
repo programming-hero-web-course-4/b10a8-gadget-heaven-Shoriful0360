@@ -14,7 +14,7 @@ const Product = ({ product }) => {
                     src={product_image}
                     alt="Shoes" />
             </figure>
-            <div className="card-body">
+            <div className="flex flex-col items-center mt-4 ">
                 <h2 className="card-title">{product_title}</h2>
                 <h2 className="card-title">Price: {price} $</h2>
 
