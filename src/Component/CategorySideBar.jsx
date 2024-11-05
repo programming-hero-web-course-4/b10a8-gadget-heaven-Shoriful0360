@@ -11,7 +11,7 @@ const CategorySideBar = ({categories}) => {
         
           <div className=' '>
             <div className=' flex flex-col  text-start text-lg font-semibold'>
-            <h1 onClick={()=>navigate('/dashboard')} className='cursor-pointer'>All Product</h1>
+            <h1 onClick={()=>navigate('/allProduct')} className='cursor-pointer'>All Product</h1>
               {
                 categories.map(category=><NavLink key={category.product_id} to={`/category/${category.category}`}>{category.category}</NavLink>)
               }

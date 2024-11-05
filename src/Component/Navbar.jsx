@@ -16,12 +16,8 @@ const Navbar = () => {
   
   useEffect(()=>{
     const getStoreData=getStoreDataList();
-    if(getStoreData){
-      setCardAdd(getStoreData)
-    }
-    else{
-      setCardAdd ([])
-    }
+  
+    setCardAdd(getStoreData)
   },[])
 
     return (

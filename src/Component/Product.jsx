@@ -1,11 +1,15 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
-const Product = ({ product }) => {
+const Product = ({ product,handleDelet }) => {
     const { product_image, price, product_title,product_id } = product || {}
+    const {pathname}=useLocation()
+    
     return (
-        <Link to={`/Id/${product_id}`}>
+    <div className='relative'>
+          <Link to={`/Id/${product_id}`}>
         
         <div className="card card-compact bg-base-100  shadow-xl">
             <figure>
@@ -24,6 +28,11 @@ const Product = ({ product }) => {
             </div>
         </div>
         </Link>
+        {
+            pathname==='/dashboard' && (<div  onClick={()=>handleDelet(product_id)} className='absolute z-40 -top-5 -right-5 p-2 cursor-pointer bg-warning rounded-full '><MdOutlineDeleteOutline className='text-3xl text-red-600' /></div>)
+        }
+
+    </div>
     );
 };
 
