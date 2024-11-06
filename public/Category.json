@@ -6,11 +6,7 @@
         "category": "Laptop",
         "price": 1299.99
     },
-    {
-        "product_id": "10",
-        "category": "Sunglass",
-        "price": 1299.99
-    },
+   
   
     {
         "product_id": "P003",
