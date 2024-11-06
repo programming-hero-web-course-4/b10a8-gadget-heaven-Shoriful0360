@@ -1,6 +1,6 @@
 
 
-1. Live_Link: https://l.facebook.com/l.php?u=https%3A%2F%2Fgadgetheaven0360.netlify.app%2F%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR0tHbk-mh5oeq3F2H0r7ksblpCCFHT-4mhogmKx1JrrHEaO5KgTgcpDgAg_aem_sD0Wh9OaVNIBC2sZRvZbDQ&h=AT1sTvUPLJJQot99esnWvPM6tGCssA4ha2Hm-Ejl-BTxpyZLumIuGYiTBC1r7LxUjxFKx3oYRbWKzZheTqa7tElLAOX1e0TAymuZiK1fOn6BxQcFheat5xbEm9MMujgRbXxSdA
+1. Live_Link: https://gadgetheaven0361.netlify.app/
 
 2. GitHub_Link: https://github.com/programming-hero-web-course-4/b10a8-gadget-heaven-Shoriful0360
 3. List of React Fundamental concepts used in the project:
