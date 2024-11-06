@@ -34,9 +34,9 @@ else{
 
 }
 
-
+// remove cart data
 const removeData=(ID)=>{
-    console.log(ID)
+   
     const storeData=getStoreDataList()
     const remainingData=storeData.filter(data=>data.product_id!==ID)
     localStorage.setItem('store',JSON.stringify(remainingData))
@@ -73,7 +73,15 @@ else{
 
 }
 
-export  {getStoreDataList,addWishlistStoreData,getStoreWhistList,removeData}
+// remove wishList data
+const removeWishListstore=(Id)=>{
+    const getWishData=getStoreWhistList()
+    const remainingData=getWishData.filter(data=>data.product_id !==Id)
+    localStorage.setItem('wishList',JSON.stringify(remainingData))
+    toast.success('Successfully, Delete Card!');
+}
+
+export  {getStoreDataList,addWishlistStoreData,getStoreWhistList,removeData,removeWishListstore}
 
 export default (addLocalStorageData)
 // export {addLocalStorageData}
