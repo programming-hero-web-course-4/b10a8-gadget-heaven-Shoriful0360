@@ -69,11 +69,26 @@ const [isOpenModal,setIsOpenModal]=useState(false)
     const handleAllDeleteData=(name)=>{
         // Id.showModal()
         if(name==='delet'){
-            localStorage.removeItem('store')
+           const remove= localStorage.removeItem('store')
             setPrice(0)
+            const getData = getStoreDataList()
+            setFavorite(getData)
         }
+       
     
         
+    }
+
+    // foe wishList all data remove functionality 
+
+    const handleWishDelet=(name)=>{
+        if(name==='delet'){
+            const remove= localStorage.removeItem('wishList')
+            setWishPrice(0)
+            const getWishData = getStoreWhistList()
+            setWishFavorite(getWishData)
+        }
+
     }
 
 
@@ -169,7 +184,24 @@ const [isOpenModal,setIsOpenModal]=useState(false)
                                 <div className="modal-action">
                                     <form method="dialog">
                                         {/* if there is a button in form, it will close the modal */}
-                                        <button onClick={()=>handleAllDeleteData('delet')} className="btn">Close</button>
+                                        {
+                                active === 'null' && (
+                                    <button onClick={()=>handleAllDeleteData('delet')} className="btn">Close</button>
+                                )
+                            }
+                            {/* for cart price */}
+                            {
+                                active === 'cart' && (
+                                    <button onClick={()=>handleAllDeleteData('delet')} className="btn">Close</button>
+                                )
+                            }
+                            {/* for wishList price   */}
+                            {
+                                active === 'wishList' && (
+                                    <button onClick={()=>handleWishDelet('delet')} className="btn">Close</button>
+                                )
+                            }
+                                        
                                     </form>
                                 </div>
                             </div>
