@@ -30,13 +30,13 @@ import Dashboard from "../pages/Dashboard";
                 {
                     path:'/',
                     element: <ProductCard></ProductCard>,
-                    loader:()=>fetch('/products.json')
+                    loader:()=>fetch('../products.json')
                     
                 },
                 {
                     path:'/category/:category',
                     element: <ProductCard></ProductCard>,
-                    loader:()=>fetch('/products.json')
+                    loader:()=>fetch('../products.json')
                     
                 },
             ]
@@ -53,11 +53,12 @@ import Dashboard from "../pages/Dashboard";
         {
           path:'/allProduct',
           element:<AllProduct></AllProduct>,
-          loader:()=>fetch('/products.json')
+          loader:()=>fetch('../products.json')
         },
        {
         path:'/dashboard',
-        element:<Dashboard></Dashboard>
+        element:<Dashboard></Dashboard>,
+        loader:()=>fetch('../products.json')
        }
       ]
     },

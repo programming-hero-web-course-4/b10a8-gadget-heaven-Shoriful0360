@@ -3,32 +3,45 @@
 import React, { useEffect, useState } from 'react';
 import AddCart from '../Component/AddCart';
 import WishListCart from '../Component/WishListCart';
-import { getStoreDataList } from '../utility/DataStore';
+import { getStoreDataList, getStoreWhistList, removeData } from '../utility/DataStore';
 import Product from '../Component/Product';
-import { useLocation } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
     const location = useLocation('/dashboard')
+    const allData=useLoaderData()
     // console.log(location)
     const [favorite, setFavorite] = useState([])
+    const [wishFavorite,setWishFavorite]=useState([])
+    console.log(allData)
 
     // const [price, setPrice] = useState(0)
     useEffect(() => {
         const getData = getStoreDataList()
+        const getWishData=getStoreWhistList()
+        setWishFavorite(getWishData)
 
         setFavorite(getData)
 
 
 
-    }, [])
+    }, [getStoreDataList,getStoreWhistList])
     const handleDelet = (Id) => {
-       
-        removeData(Id)
-        const getData = getStoreDataList()
+      
+    //    removeData()
+    
+    //     const getData = getStoreDataList()
 
-        setFavorite(getData)
+    //     setFavorite(getData)
     }
-console.log(favorite)
+    const handlePrice=(name)=>{
+        if(name==='addPrice'){
+            const sortPrice=[...favorite].sort((a,b)=>a.price - b.price)
+            setFavorite(sortPrice)
+          
+        }
+    }
+
 
 
     return (
@@ -49,26 +62,17 @@ console.log(favorite)
                 <div><h1>Cart</h1></div>
                 <div className='flex gap-6 items-center'>
                     <h1 className='text-xl font-semibold'>Total cost: <small></small></h1>
-                    <button className='btn'>Sort by price </button>
+                    <button onClick={()=>handlePrice('addPrice')} className='btn'>Sort by price </button>
                     <button className='btn'>Purchase</button>
                 </div>
             </div>
-            <h1 className='text-4xl font-bold mt-4'>Add Your Favorite Card</h1>
+            <h1  className='text-4xl font-bold mt-4'>Add Your Favorite Card</h1>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-5'>
-
-                {
-                    favorite.map(product => <Product handleDelet={handleDelet} key={product.produt_id} product={product}></Product>)
-                }
-
-                {/* {
-                    favorite.map((idx,product)=><AddCart></AddCart>)
-                } */}
-
-                {/* {
-                    favorite.map(product => <Product handleDelet={handleDelet} key={product.produt_id} product={product}></Product>)
-                } */}
-
-            </div>
+          {
+            favorite.map(product=><Product handlePrice={handlePrice} key={product.produt_id} product={product}></Product>)
+          }
+        </div>
+            
 
         </div>
     );

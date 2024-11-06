@@ -73,7 +73,7 @@ else{
 
 }
 
-export  {getStoreDataList,addWishlistStoreData,getStoreWhistList}
+export  {getStoreDataList,addWishlistStoreData,getStoreWhistList,removeData}
 
 export default (addLocalStorageData)
 // export {addLocalStorageData}
