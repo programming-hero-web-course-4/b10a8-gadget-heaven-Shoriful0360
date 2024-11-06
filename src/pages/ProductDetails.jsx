@@ -6,7 +6,7 @@ import addLocalStorageData, { getStoreDataList,addWishlistStoreData }  from '../
 
 import { countContext, wishCountContex } from '../Component/MainLayout/Layout';
 
-const ProductDetails = () => {
+const ProductDetails = ({handleTotalAmount}) => {
   const {count,setCount}=useContext(countContext)
   const{wishCount,setWishCount}=useContext(wishCountContex)
 
@@ -92,7 +92,7 @@ else {
       <h2 className='text-xl flex text-center items-center gap-3 justify-center font-semibold'>Rating: {rating} <FaRegStar className='bg-warning' /> </h2>
       <button
       disabled={active}
-      onClick={()=>handleStorage(product)} className="btn btn-primary">Add to card</button>
+      onClick={()=>handleStorage(product)}  className="btn btn-primary">Add to card</button>
       <button
       disabled={WishActive}
       onClick={()=>handleWishlistStorageData(product)}  className="btn btn-primary ml-3">WishList</button>

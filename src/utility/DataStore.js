@@ -38,7 +38,7 @@ else{
 const removeData=(ID)=>{
     console.log(ID)
     const storeData=getStoreDataList()
-    const remainingData=storeData.find(data=>data.product_id!==ID)
+    const remainingData=storeData.filter(data=>data.product_id!==ID)
     localStorage.setItem('store',JSON.stringify(remainingData))
     toast.success('Successfully, Delete Card!');
 }

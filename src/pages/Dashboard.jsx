@@ -6,6 +6,7 @@ import WishListCart from '../Component/WishListCart';
 import { getStoreDataList, getStoreWhistList, removeData } from '../utility/DataStore';
 import Product from '../Component/Product';
 import { useLoaderData, useLocation } from 'react-router-dom';
+import ProductDetails from './ProductDetails';
 
 const Dashboard = () => {
     const location = useLocation('/dashboard')
@@ -26,20 +27,30 @@ const Dashboard = () => {
 
 
     }, [getStoreDataList,getStoreWhistList])
-    const handleDelet = (Id) => {
-      
-    //    removeData()
-    
-    //     const getData = getStoreDataList()
 
-    //     setFavorite(getData)
+    
+    const handleDelet = (Id) => {
+        
+      
+       removeData(Id)
+    
+        const getData = getStoreDataList()
+
+        setFavorite(getData)
     }
-    const handlePrice=(name)=>{
+    const handleSortPrice=(name)=>{
         if(name==='addPrice'){
             const sortPrice=[...favorite].sort((a,b)=>a.price - b.price)
             setFavorite(sortPrice)
           
         }
+    }
+
+
+    // add price functionality
+
+    const handleTotalAmount=(amount)=>{
+        console.log(amount)
     }
 
 
@@ -62,17 +73,17 @@ const Dashboard = () => {
                 <div><h1>Cart</h1></div>
                 <div className='flex gap-6 items-center'>
                     <h1 className='text-xl font-semibold'>Total cost: <small></small></h1>
-                    <button onClick={()=>handlePrice('addPrice')} className='btn'>Sort by price </button>
+                    <button onClick={()=>handleSortPrice('addPrice')} className='btn'>Sort by price </button>
                     <button className='btn'>Purchase</button>
                 </div>
             </div>
             <h1  className='text-4xl font-bold mt-4'>Add Your Favorite Card</h1>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-5'>
           {
-            favorite.map(product=><Product handlePrice={handlePrice} key={product.produt_id} product={product}></Product>)
+            favorite.map(product=><Product handleDelet={handleDelet}  key={product.produt_id} product={product}></Product>)
           }
         </div>
-            
+          
 
         </div>
     );

@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
-const Product = ({ product }) => {
+const Product = ({ product,handleDelet }) => {
     const { product_image, price, product_title,product_id } = product || {}
     const {pathname}=useLocation()
     
@@ -29,7 +29,7 @@ const Product = ({ product }) => {
         </div>
         </Link>
         {
-            pathname==='/dashboard' && (<div   className='absolute z-40 -top-5 -right-5 p-2 cursor-pointer bg-warning rounded-full '><MdOutlineDeleteOutline className='text-3xl text-red-600' /></div>)
+            pathname==='/dashboard' && (<div onClick={()=>handleDelet(product_id)}   className='absolute z-40 -top-5 -right-5 p-2 cursor-pointer bg-warning rounded-full '><MdOutlineDeleteOutline className='text-3xl text-red-600' /></div>)
         }
 
     </div>
