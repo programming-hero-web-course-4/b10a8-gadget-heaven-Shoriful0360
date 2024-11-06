@@ -14,7 +14,8 @@ const Dashboard = () => {
     // console.log(location)
     const [favorite, setFavorite] = useState([])
     const [wishFavorite,setWishFavorite]=useState([])
-    console.log(allData)
+    const [active,setActive]=useState('null')
+    console.log(active)
 
     // const [price, setPrice] = useState(0)
     useEffect(() => {
@@ -28,12 +29,14 @@ const Dashboard = () => {
 
     }, [getStoreDataList,getStoreWhistList])
 
+    const handleCartAndWishlistBtn=(name)=>{
+       setActive(name)
+
+    }
+
     
-    const handleDelet = (Id) => {
-        
-      
+    const handleDelet = (Id) => {      
        removeData(Id)
-    
         const getData = getStoreDataList()
 
         setFavorite(getData)
@@ -64,8 +67,8 @@ const Dashboard = () => {
                         <p className="py-6">
                             Explore the latest gadgets that will take your experience to the next level. From smart devices to the coolest accessories, we have it all!
                         </p>
-                        <button className="btn text-begoni text-lg">Cart</button>
-                        <button className="btn text-begoni ml-2 text-lg">WishList</button>
+                        <button onClick={()=>handleCartAndWishlistBtn('cart')} className="btn text-begoni text-lg">Cart</button>
+                        <button  onClick={()=>handleCartAndWishlistBtn('wishList')} className="btn text-begoni ml-2 text-lg">WishList</button>
                     </div>
                 </div>
             </div>
@@ -78,11 +81,35 @@ const Dashboard = () => {
                 </div>
             </div>
             <h1  className='text-4xl font-bold mt-4'>Add Your Favorite Card</h1>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-5'>
-          {
-            favorite.map(product=><Product handleDelet={handleDelet}  key={product.produt_id} product={product}></Product>)
-          }
-        </div>
+           {
+            active ==='null' &&(
+                <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-5'>
+                {
+                  favorite.map(product=><Product handleDelet={handleDelet}  key={product.produt_id} product={product}></Product>)
+                }
+              </div>
+            )
+           }
+            {
+                active==='cart' &&(
+                    <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-5'>
+                    {
+                      favorite.map(product=><Product handleDelet={handleDelet}  key={product.produt_id} product={product}></Product>)
+                    }
+                  </div>
+                )
+            }
+
+            {
+                active==='wishList' && (
+                    <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-5'>
+                    {
+                      wishFavorite.map(product=><Product handleDelet={handleDelet}  key={product.produt_id} product={product}></Product>)
+                    }
+                  </div>
+                )
+            }
+           
           
 
         </div>
