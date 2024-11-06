@@ -5,22 +5,25 @@ import AddCart from '../Component/AddCart';
 import WishListCart from '../Component/WishListCart';
 import { getStoreDataList, getStoreWhistList, removeData, removeWishListstore } from '../utility/DataStore';
 import Product from '../Component/Product';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import ProductDetails from './ProductDetails';
 import img from '../../src/assets/Group.png'
 
 const Dashboard = () => {
     const location = useLocation('/dashboard')
     const allData = useLoaderData()
+    const navigate = useNavigate()
 
     const [favorite, setFavorite] = useState([])
     const [wishFavorite, setWishFavorite] = useState([])
     const [active, setActive] = useState('null')
+    const [disableCartPurchase,setDisableCartPurchase]=useState(false)
+    const [disableWishPurchase,setDisableWishPurchase]=useState(false)
 
     const [wishPrice, setWishPrice] = useState(0)
     const [price, setPrice] = useState(0)
-// for modal useState
-const [isOpenModal,setIsOpenModal]=useState(false)
+    // for modal useState
+    const [isOpenModal, setIsOpenModal] = useState(false)
     useEffect(() => {
         const getData = getStoreDataList()
         const total = getData.reduce((acc, product) => acc + (product.price || 0), 0)
@@ -37,13 +40,22 @@ const [isOpenModal,setIsOpenModal]=useState(false)
     }, [getStoreDataList, getStoreWhistList])
 
     const handleCartAndWishlistBtn = (name) => {
-        setActive(name)
+       if(name==='wishList' && wishPrice===0){
+            setDisableWishPurchase(true)
+          
+       }
+       if(name==='cart' && price===0){
+        disableCartPurchase(true)
+       
+   }
+   setActive(name) 
 
     }
 
 
     const handleDelet = (Id) => {
-        removeData(Id)
+        const del = removeData(Id)
+        // setPrice(del)
 
         const getData = getStoreDataList()
 
@@ -51,7 +63,7 @@ const [isOpenModal,setIsOpenModal]=useState(false)
     }
 
     const handleDeletWishList = (Id) => {
-        removeWishListstore(Id)
+        const del = removeWishListstore(Id)
         const getWish = getStoreWhistList()
         setWishFavorite(getWish)
     }
@@ -66,27 +78,32 @@ const [isOpenModal,setIsOpenModal]=useState(false)
 
     // Modal functionality
 
-    const handleAllDeleteData=(name)=>{
+    const handleAllDeleteData = (name) => {
         // Id.showModal()
-        if(name==='delet'){
-           const remove= localStorage.removeItem('store')
+        if (name === 'delet') {
+            const remove = localStorage.removeItem('store')
             setPrice(0)
             const getData = getStoreDataList()
             setFavorite(getData)
+            navigate('/')
         }
-       
-    
-        
+
+
+
     }
 
     // foe wishList all data remove functionality 
 
-    const handleWishDelet=(name)=>{
-        if(name==='delet'){
-            const remove= localStorage.removeItem('wishList')
+    const handleWishDelet = (name) => {
+        if (name === 'delet') {
+            const remove = localStorage.removeItem('wishList')
             setWishPrice(0)
             const getWishData = getStoreWhistList()
             setWishFavorite(getWishData)
+            navigate('/')
+         
+          
+
         }
 
     }
@@ -148,66 +165,87 @@ const [isOpenModal,setIsOpenModal]=useState(false)
                         }
 
                         $ <small></small></h1>
-                    
+
                     <button onClick={() => handleSortPrice('addPrice')} className='btn'>Sort by price </button>
-                    
+
                     {/* Modal start */}
+                    {
+                        active === 'null' && (
+                            <button
+                                // disabled={getData.length === 0 || total === 0}
+                                className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Purchase</button>
+                        )
+                    }
+                      {
+                        active === 'cart' && (
+                            <button
+                                disabled={disableCartPurchase}
+                                className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Purchase</button>
+                        )
+                    }
+                      {
+                        active === 'wishList' && (
+                            <button
+                                disabled={disableWishPurchase}
+                                className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Purchase</button>
+                        )
+                    }
                     {/* Open the modal using document.getElementById('ID').showModal() method */}
-                    <button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()}>Purchase</button>
+
                     <dialog id="my_modal_1" className="modal">
-                            <div className="modal-box justify-center">
-                                <div className='flex justify-center'>
+                        <div className="modal-box justify-center">
+                            <div className='flex justify-center'>
                                 <img src={img} alt="" />
-                                </div>
-                                <h3 className="font-bold text-lg">Confirm Purchase</h3>
-                                <p className="py-4">Are you sure you want to complete the purchase? This action will clear the cart</p>
-                                <h1 className='text-2xl font-bold'>Total Purchase: 
-                                       {/* for default  value */}
-                            {
-                                active === 'null' && (
-                                    price.toFixed(2)
-                                )
-                            }
-                            {/* for cart price */}
-                            {
-                                active === 'cart' && (
-                                    price.toFixed(2)
-                                )
-                            }
-                            {/* for wishList price   */}
-                            {
-                                active === 'wishList' && (
-                                    wishPrice.toFixed(2)
-                                )
-                            }$
-                                </h1>
-                                <div className="modal-action">
-                                    <form method="dialog">
-                                        {/* if there is a button in form, it will close the modal */}
-                                        {
-                                active === 'null' && (
-                                    <button onClick={()=>handleAllDeleteData('delet')} className="btn">Close</button>
-                                )
-                            }
-                            {/* for cart price */}
-                            {
-                                active === 'cart' && (
-                                    <button onClick={()=>handleAllDeleteData('delet')} className="btn">Close</button>
-                                )
-                            }
-                            {/* for wishList price   */}
-                            {
-                                active === 'wishList' && (
-                                    <button onClick={()=>handleWishDelet('delet')} className="btn">Close</button>
-                                )
-                            }
-                                        
-                                    </form>
-                                </div>
                             </div>
-                        </dialog>
+                            <h3 className="font-bold text-lg">Confirm Purchase</h3>
+                            <p className="py-4">Are you sure you want to complete the purchase? This action will clear the cart</p>
+                            <h1 className='text-2xl font-bold'>Total Purchase:
+                                {/* for default  value */}
+                                {
+                                    active === 'null' && (
+                                        price.toFixed(2)
+                                    )
+                                }
+                                {/* for cart price */}
+                                {
+                                    active === 'cart' && (
+                                        price.toFixed(2)
+                                    )
+                                }
+                                {/* for wishList price   */}
+                                {
+                                    active === 'wishList' && (
+                                        wishPrice.toFixed(2)
+                                    )
+                                }$
+                            </h1>
+                            <div className="modal-action">
+                                <form method="dialog">
+                                    {/* if there is a button in form, it will close the modal */}
+                                    {
+                                        active === 'null' && (
+                                            <button onClick={() => handleAllDeleteData('delet')} className="btn">Close</button>
+                                        )
+                                    }
+                                    {/* for cart price */}
+                                    {
+                                        active === 'cart' && (
+                                            <button onClick={() => handleAllDeleteData('delet')} className="btn">Close</button>
+                                        )
+                                    }
+                                    {/* for wishList price   */}
+                                    {
+                                        active === 'wishList' && (
+                                            <button onClick={() => handleWishDelet('delet')} className="btn">Close</button>
+                                        )
+                                    }
+
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
                     {/* Modal end */}
-                    
+
                 </div>
             </div>
             <h1 className='text-4xl font-bold mt-4'>Add Your Favorite Card</h1>

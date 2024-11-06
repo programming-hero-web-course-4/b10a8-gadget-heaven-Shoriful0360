@@ -19,8 +19,10 @@ const Navbar = () => {
 
   const { count, setCount } = useContext(countContext)
   const { wishCount, setWishCount } = useContext(wishCountContex)
-  // const{count,setCount}=useContext(countContext)
-
+  const location=useLocation()
+ 
+  const bgcolor=location.pathname=='/'?'bg-begoni ':'bg-white'
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const getStoreData = getStoreDataList();
@@ -33,11 +35,20 @@ const Navbar = () => {
     const getStoreWish=getStoreWhistList()
     setCardWish(getStoreWish)
 
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+
   }, [wishCount])
 
   return (
     <div className=' '>
-      <div className={`navbar  fixed mx-auto max-w-[1476px] z-50 backdrop-blur-lg bg-begoni  rounded-md`}>
+      <div className={`navbar  fixed mx-auto  ${
+                isScrolled ? 'backdrop-blur-md bg-white/70' : 'bg-begoni'
+            } max-w-[1476px] ${bgcolor} z-50 backdrop-blur-lg rounded-md`}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,20 +68,20 @@ const Navbar = () => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
-              <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
-              <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+              <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
+              <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
+              <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
             </ul>
           </div>
-          <NavLink className="btn btn-ghost font-bold text-xl">daisyUI</NavLink>
+          <NavLink className="btn btn-ghost font-bold text-xl">Gadget Heaven</NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu gap-10 menu-horizontal px-1">
 
-            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
-            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
-            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
-            <NavLink className={({ isActive }) => `${isActive ? 'text-warning' : 'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-green-500' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+            <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
 
 
           </ul>
