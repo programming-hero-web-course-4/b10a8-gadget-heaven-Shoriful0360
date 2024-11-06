@@ -42,11 +42,12 @@ const Dashboard = () => {
     const handleCartAndWishlistBtn = (name) => {
        if(name==='wishList' && wishPrice===0){
             setDisableWishPurchase(true)
+        
           
        }
        if(name==='cart' && price===0){
         disableCartPurchase(true)
-       
+        // setActive(name) 
    }
    setActive(name) 
 
@@ -68,9 +69,14 @@ const Dashboard = () => {
         setWishFavorite(getWish)
     }
     const handleSortPrice = (name) => {
-        if (name === 'addPrice') {
+        if (name === 'cartSortPrice' ||'defaultPrice') {
             const sortPrice = [...favorite].sort((a, b) => a.price - b.price)
             setFavorite(sortPrice)
+
+        }
+        if (name === 'wishSortPrice' ) {
+            const sortPrice = [...wishFavorite].sort((a, b) => b.price - a.price)
+            setWishFavorite(sortPrice)
 
         }
     }
@@ -165,14 +171,31 @@ const Dashboard = () => {
                         }
 
                         $ <small></small></h1>
+                        {/* sort price fuction start */}
+                        {
+                        active === 'null' && (
+                            <button onClick={() => handleSortPrice('defaultSortPrice')} className='btn'>Sort by price </button>
+                        )
+                    }
+                     {
+                        active === 'cart' && (
+                            <button onClick={() => handleSortPrice('cartSortPrice')} className='btn'>Sort by price </button>
+                        )
+                    }
+                        {
+                        active === 'wishList' && (
+                            <button onClick={() => handleSortPrice('wishSortPrice')} className='btn'>Sort by price </button>
+                        )
+                    }
+                        {/* sort price fuction end */}
 
-                    <button onClick={() => handleSortPrice('addPrice')} className='btn'>Sort by price </button>
+                   
 
                     {/* Modal start */}
                     {
                         active === 'null' && (
                             <button
-                                // disabled={getData.length === 0 || total === 0}
+                                
                                 className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Purchase</button>
                         )
                     }

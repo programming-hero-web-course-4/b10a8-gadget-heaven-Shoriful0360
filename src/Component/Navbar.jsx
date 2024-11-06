@@ -71,6 +71,7 @@ const Navbar = () => {
               <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
               <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
               <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+              <NavLink className={({ isActive }) => `text-xl font-bold ${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
             </ul>
           </div>
           <NavLink className="btn btn-ghost font-bold text-xl">Gadget Heaven</NavLink>
@@ -78,10 +79,10 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu gap-10 menu-horizontal px-1">
 
-            <NavLink className={({ isActive }) => `${isActive ? 'text-green-500' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
-            <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
-            <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
-            <NavLink className={({ isActive }) => `${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
+            <NavLink className={({ isActive }) => `text-xl font-bold ${isActive ? 'text-green-500' : 'hover:bg-green-200'}`} to={'/'}>Home</NavLink>
+            <NavLink className={({ isActive }) => `text-xl font-bold ${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/statistic'}>Statistics</NavLink>
+            <NavLink className={({ isActive }) => `text-xl font-bold ${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/dashboard'}>Dashboard</NavLink>
+            <NavLink className={({ isActive }) => `text-xl font-bold ${isActive ? 'text-begoni' : 'hover:bg-green-200'}`} to={'/allproduct'}>All Product</NavLink>
 
 
           </ul>
